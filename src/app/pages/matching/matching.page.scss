@@ -1,0 +1,18 @@
+.match-card {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+  background: var(--ion-card-background, #fff);
+  overflow: hidden;
+}
+
+.poster-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 12px 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

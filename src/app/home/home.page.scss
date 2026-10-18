@@ -1,0 +1,30 @@
+.movie-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--ion-card-background, #fff);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  }
+
+  img {
+    height: 260px;
+    object-fit: cover;
+  }
+}
+
+.movie-title {
+  font-weight: 700;
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

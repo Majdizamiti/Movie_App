@@ -1,0 +1,19 @@
+ion-item {
+  --border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: var(--ion-card-background, #fff);
+  overflow: hidden;
+}
+
+ion-thumbnail {
+  --border-radius: 8px;
+  width: 55px;
+  height: 80px;
+  margin: 8px;
+
+  img {
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}

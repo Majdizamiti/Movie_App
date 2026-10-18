@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Admin Dashboard 🛡️</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="users">
+        <ion-label>Users Management</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="movies">
+        <ion-label>Add Movie</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- USERS SECTION -->
+  <div *ngIf="segment === 'users'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let u of users">
+        <ion-avatar slot="start" style="width: 50px; height: 50px;">
+          <img [src]="u.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+        </ion-avatar>
+        <ion-label>
+          <h2 style="font-weight: 700;">{{ u.firstName }} {{ u.lastName }} <ion-badge color="medium" style="font-size: 10px;">{{ u.role }}</ion-badge></h2>
+          <p style="color: var(--ion-color-medium);">{{ u.email }} • Age: {{ u.age }}</p>
+          <p style="margin-top: 4px;">
+            <ion-badge [color]="u.active ? 'success' : 'danger'" style="padding: 4px 8px; border-radius: 6px;">
+              {{ u.active ? 'Active' : 'Disabled' }}
+            </ion-badge>
+          </p>
+        </ion-label>
+        <ion-button slot="end" [color]="u.active ? 'danger' : 'success'" size="small" shape="round" (click)="toggleUserStatus(u)">
+          {{ u.active ? 'Disable' : 'Activate' }}
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- MOVIES SECTION -->
+  <div *ngIf="segment === 'movies'">
+    <div class="admin-form-container">
+      <h2 style="font-weight: 700; margin-bottom: 20px; text-align: center;">Add Custom Movie</h2>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-input label="Movie ID (TMDB or Custom)" labelPlacement="stacked" type="number" [(ngModel)]="newMovieId"></ion-input>
+      </ion-item>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-input label="Movie Title" labelPlacement="stacked" [(ngModel)]="newMovieTitle" placeholder="Inception"></ion-input>
+      </ion-item>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-textarea label="Overview / Description" labelPlacement="stacked" [(ngModel)]="newMovieOverview" placeholder="Enter movie description..." rows="4"></ion-textarea>
+      </ion-item>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-input label="Poster Image URL" labelPlacement="stacked" [(ngModel)]="newMoviePosterPath" placeholder="https://image.tmdb.org/..."></ion-input>
+      </ion-item>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-input label="Release Date" labelPlacement="stacked" [(ngModel)]="newMovieReleaseDate" placeholder="YYYY-MM-DD"></ion-input>
+      </ion-item>
+
+      <ion-item fill="outline" class="ion-margin-bottom">
+        <ion-input label="Vote Average" labelPlacement="stacked" type="number" [(ngModel)]="newMovieVoteAverage"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" color="danger" (click)="onAddMovie()" shape="round" class="ion-margin-top">
+        Save Movie to Database
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

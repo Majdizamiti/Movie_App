@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Movie Matching 🤝</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="isLoading" style="text-align: center; margin-top: 100px;">
+    <ion-spinner name="crescent" color="primary" style="width: 48px; height: 48px;"></ion-spinner>
+    <p style="margin-top: 16px; color: var(--ion-color-medium);">Finding compatible movie lovers...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <ion-card *ngFor="let match of matches" class="match-card">
+      <ion-card-header>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <ion-avatar style="width: 55px; height: 55px; border: 2px solid var(--ion-color-success);">
+              <img [src]="match.user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+            </ion-avatar>
+            <div>
+              <ion-card-title style="font-size: 18px; font-weight: 700;">{{ match.user.firstName }} {{ match.user.lastName }}</ion-card-title>
+              <ion-card-subtitle>{{ match.user.email }}</ion-card-subtitle>
+            </div>
+          </div>
+          <ion-badge color="success" style="font-size: 15px; padding: 8px 12px; border-radius: 12px; font-weight: 700;">
+            {{ match.percentage }}% Match
+          </ion-badge>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p style="font-weight: 600; margin-bottom: 8px; color: var(--ion-text-color);">❤️ {{ match.commonMovies.length }} movies in common:</p>
+        <div class="poster-scroll">
+          <div *ngFor="let movie of match.commonMovies" style="text-align: center; min-width: 75px;">
+            <img [src]="movie.posterPath || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" style="width: 70px; height: 105px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+            <p style="font-size: 11px; margin: 4px 0 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 70px;">{{ movie.title }}</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="matches.length === 0" style="text-align: center; margin-top: 100px;">
+      <ion-icon name="people-outline" style="font-size: 72px; color: var(--ion-color-medium); margin-bottom: 12px;"></ion-icon>
+      <h3 style="color: var(--ion-color-medium);">No matches found (> 75%)</h3>
+      <p style="color: var(--ion-color-step-400);">Add more favorites to discover compatible users!</p>
+    </div>
+  </div>
+</ion-content>
