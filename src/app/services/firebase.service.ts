@@ -5,7 +5,7 @@ import { getDatabase, Database } from 'firebase/database';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCCehSIsQ8bhq7AJyNnSzHZsPLBN0NHro4",
+  apiKey: "*********",
   authDomain: "movieapp-e5b82.firebaseapp.com",
   databaseURL: "https://movieapp-e5b82-default-rtdb.firebaseio.com",
   projectId: "movieapp-e5b82",
