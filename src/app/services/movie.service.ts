@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class MovieService {
-  private tmdbApiKey = 'YOUR_TMDB_API_KEY';
+  private tmdbApiKey = '802b2c4b88ea1183e50e6b285a27696e';
   private tmdbBaseUrl = 'https://api.themoviedb.org/3';
 
   constructor(private http: HttpClient, private firebaseService: FirebaseService) {}

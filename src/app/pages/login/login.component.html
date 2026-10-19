@@ -1,3 +1,59 @@
-<p>
-  login works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>🎬 MovieApp Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-margin">
+    <ion-card>
+      <ion-card-header>
+        <div class="ion-text-center">
+          <ion-icon name="film-outline" style="font-size: 64px; color: var(--ion-color-primary); margin-bottom: 8px;"></ion-icon>
+          <ion-card-title>Welcome Back</ion-card-title>
+          <p style="color: var(--ion-color-medium); margin-top: 4px;">Sign in to explore & match movies</p>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-input
+              type="email"
+              label="Email"
+              labelPlacement="floating"
+              placeholder="email@domain.com"
+              helperText="Enter a valid email"
+              errorText="Invalid email"
+              [(ngModel)]="email"
+              email
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              type="password"
+              label="Password"
+              labelPlacement="floating"
+              [(ngModel)]="password"
+            >
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p class="ion-text-center ion-padding-vertical">{{ errorMessage }}</p>
+        </ion-text>
+
+        <ion-button expand="block" (click)="onLogin()" class="ion-margin-top">
+          Sign In
+        </ion-button>
+
+        <div class="ion-text-center ion-margin-top">
+          <p>Don't have an account? <a routerLink="/register" style="font-weight: 600; text-decoration: none;">Register</a></p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

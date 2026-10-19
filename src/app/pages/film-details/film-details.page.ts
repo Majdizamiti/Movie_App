@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonBadge
+  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonBadge,
+  IonCard, IonCardHeader, IonCardTitle, IonCardContent
 } from '@ionic/angular';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
@@ -18,7 +19,8 @@ import { arrowBack, heart, heartOutline } from 'ionicons/icons';
   standalone: true,
   imports: [
     CommonModule, RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonBadge
+    IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonBadge,
+    IonCard, IonCardHeader, IonCardTitle, IonCardContent
   ]
 })
 export class FilmDetailsPage implements OnInit {

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="goBack()">
@@ -9,61 +9,63 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="user">
-  <div class="profile-header">
-    <ion-avatar>
-      <img [src]="user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
-    </ion-avatar>
-    <ion-button fill="outline" size="small" shape="round" (click)="updatePhoto()">
-      <ion-icon name="camera-outline" slot="start"></ion-icon> Change Photo
-    </ion-button>
-  </div>
+<ion-content [fullscreen]="true" *ngIf="user">
+  <div class="ion-margin">
+    <div class="profile-header ion-text-center ion-margin-bottom">
+      <ion-avatar style="margin: 0 auto 12px auto; width: 90px; height: 90px;">
+        <img [src]="user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+      </ion-avatar>
+      <ion-button fill="outline" size="small" (click)="updatePhoto()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon> Change Photo
+      </ion-button>
+    </div>
 
-  <ion-card class="ion-margin-bottom">
-    <ion-card-content>
-      <ion-item lines="full">
-        <ion-label>
-          <p style="font-size: 12px; color: var(--ion-color-medium);">Full Name</p>
-          <h2 style="font-weight: 700; font-size: 16px;">{{ user.firstName }} {{ user.lastName }}</h2>
-        </ion-label>
-      </ion-item>
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Full Name</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.firstName }} {{ user.lastName }}</h2>
+            </ion-label>
+          </ion-item>
 
-      <ion-item lines="full">
-        <ion-label>
-          <p style="font-size: 12px; color: var(--ion-color-medium);">Email Address</p>
-          <h2 style="font-weight: 700; font-size: 16px;">{{ user.email }}</h2>
-        </ion-label>
-      </ion-item>
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Email Address</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.email }}</h2>
+            </ion-label>
+          </ion-item>
 
-      <ion-item lines="full">
-        <ion-label>
-          <p style="font-size: 12px; color: var(--ion-color-medium);">Age</p>
-          <h2 style="font-weight: 700; font-size: 16px;">{{ user.age }} years old</h2>
-        </ion-label>
-      </ion-item>
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Age</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.age }} years old</h2>
+            </ion-label>
+          </ion-item>
 
-      <ion-item lines="full">
-        <ion-label>
-          <p style="font-size: 12px; color: var(--ion-color-medium);">Role</p>
-          <h2 style="font-weight: 700; font-size: 16px;">{{ user.role | uppercase }}</h2>
-        </ion-label>
-      </ion-item>
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Role</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.role | uppercase }}</h2>
+            </ion-label>
+          </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>
-          <p style="font-size: 12px; color: var(--ion-color-medium);">Account Status</p>
-          <p style="margin-top: 4px;">
-            <ion-badge [color]="user.active ? 'success' : 'danger'" style="padding: 6px 12px; border-radius: 8px;">
-              {{ user.active ? 'Active' : 'Disabled' }}
-            </ion-badge>
-          </p>
-        </ion-label>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+          <ion-item lines="none">
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Account Status</p>
+              <p style="margin-top: 4px;">
+                <ion-badge [color]="user.active ? 'success' : 'danger'" style="padding: 6px 12px; border-radius: 8px;">
+                  {{ user.active ? 'Active' : 'Disabled' }}
+                </ion-badge>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
 
-  <div class="ion-padding-horizontal">
-    <ion-button expand="block" color="danger" (click)="logout()" shape="round">
+    <ion-button expand="block" color="danger" (click)="logout()" class="ion-margin-top">
       <ion-icon name="log-out-outline" slot="start"></ion-icon> Logout
     </ion-button>
   </div>

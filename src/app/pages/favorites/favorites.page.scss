@@ -1,19 +1,27 @@
 ion-item {
-  --border-radius: 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background: var(--ion-card-background, #fff);
+  --border-radius: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  background: var(--ion-card-background);
+  border: 1px solid var(--ion-border-color);
   overflow: hidden;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateX(4px);
+    border-color: rgba(229, 9, 20, 0.3);
+  }
 }
 
 ion-thumbnail {
-  --border-radius: 8px;
-  width: 55px;
-  height: 80px;
-  margin: 8px;
+  --border-radius: 12px;
+  width: 65px;
+  height: 95px;
+  margin: 10px;
 
   img {
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 }

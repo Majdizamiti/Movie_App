@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent,
-  IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonButtons, IonInputPasswordToggle, IonList
+  IonCard, IonCardHeader, IonCardContent,
+  IonList, IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonButtons, IonInputPasswordToggle
 } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -19,7 +20,8 @@ import { cameraOutline, arrowBack } from 'ionicons/icons';
   imports: [
     CommonModule, FormsModule, RouterModule,
     IonHeader, IonToolbar, IonTitle, IonContent,
-    IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonButtons, IonInputPasswordToggle, IonList
+    IonCard, IonCardHeader, IonCardContent,
+    IonList, IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonButtons, IonInputPasswordToggle
   ]
 })
 export class RegisterPage {
@@ -60,6 +62,7 @@ export class RegisterPage {
   }
 
   async onRegister() {
+    (document.activeElement as HTMLElement)?.blur();
     try {
       this.errorMessage = '';
       if (!this.email || !this.password || !this.firstName || !this.lastName) {

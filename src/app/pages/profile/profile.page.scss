@@ -7,16 +7,25 @@
     height: 120px;
     margin: 0 auto 16px auto;
     border: 4px solid var(--ion-color-primary);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 35px rgba(229, 9, 20, 0.4);
   }
 }
 
 ion-card {
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+  background: var(--ion-card-background);
+  border: 1px solid var(--ion-border-color);
 }
 
 ion-item {
+  --background: transparent;
   --padding-start: 0;
   --inner-padding-end: 0;
+}
+
+ion-button {
+  --border-radius: 14px;
+  font-weight: 700;
+  height: 50px;
 }

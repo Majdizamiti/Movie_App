@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonAvatar,
   IonButton, IonButtons, IonIcon, IonCard, IonCardContent,
-  IonItem, IonLabel, IonBadge
+  IonItem, IonLabel, IonBadge, IonList
 } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -23,7 +23,7 @@ import { arrowBack, cameraOutline, logOutOutline } from 'ionicons/icons';
     CommonModule, FormsModule, RouterModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonAvatar,
     IonButton, IonButtons, IonIcon, IonCard, IonCardContent,
-    IonItem, IonLabel, IonBadge
+    IonItem, IonLabel, IonBadge, IonList
   ]
 })
 export class ProfilePage implements OnInit {
