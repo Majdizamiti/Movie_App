@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IonCard, IonCardContent, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonButton, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { play, star } from 'ionicons/icons';
 
