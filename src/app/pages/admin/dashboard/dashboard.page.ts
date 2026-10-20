@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonSegment, IonSegmentButton,
   IonLabel, IonList, IonItem, IonAvatar, IonBadge, IonButton, IonButtons, IonBackButton,
-  IonIcon, IonInput, IonTextarea, IonSpinner
+  IonIcon, IonInput, IonTextarea, IonSpinner, AlertController
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
@@ -42,7 +42,8 @@ export class AdminDashboardPage implements OnInit {
   constructor(
     private readonly adminService: AdminService,
     readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly alertController: AlertController
   ) {
     addIcons({ arrowBack, createOutline, trashOutline, addOutline, closeOutline });
   }
@@ -160,13 +161,29 @@ export class AdminDashboardPage implements OnInit {
   }
 
   async deleteMovie(movie: Movie): Promise<void> {
-    if (!confirm(`Delete the custom movie “${movie.title}”?`)) return;
-    await this.runSafely(async () => {
-      await this.adminService.deleteMovie(movie.id);
-      this.movies = this.movies.filter(item => item.id !== movie.id);
-      if (this.editingMovieId === movie.id) this.cancelMovieEdit();
-      this.successMessage = 'Custom movie deleted.';
+    const alert = await this.alertController.create({
+      header: 'Delete Movie',
+      message: `Are you sure you want to delete the custom movie “${movie.title}”?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: async () => {
+            await this.runSafely(async () => {
+              await this.adminService.deleteMovie(movie.id);
+              this.movies = this.movies.filter(item => item.id !== movie.id);
+              if (this.editingMovieId === movie.id) this.cancelMovieEdit();
+              this.successMessage = 'Custom movie deleted.';
+            });
+          }
+        }
+      ]
     });
+    await alert.present();
   }
 
   goBack(): void { void this.router.navigate(['/home']); }
