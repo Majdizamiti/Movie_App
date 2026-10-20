@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar,
-  IonButton, IonButtons, IonIcon, IonCard, IonCardContent,
+  IonButton, IonButtons, IonBackButton, IonIcon, IonCard, IonCardContent,
   IonItem, IonLabel, IonBadge, IonList
 } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
@@ -22,7 +22,7 @@ import { arrowBack, cameraOutline, logOutOutline } from 'ionicons/icons';
   imports: [
     CommonModule, FormsModule, RouterModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonAvatar,
-    IonButton, IonButtons, IonIcon, IonCard, IonCardContent,
+    IonButton, IonButtons, IonBackButton, IonIcon, IonCard, IonCardContent,
     IonItem, IonLabel, IonBadge, IonList
   ]
 })

@@ -1,8 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonList, IonItem,
-  IonThumbnail, IonLabel, IonButton, IonButtons, IonIcon
+  IonThumbnail, IonLabel, IonButton, IonButtons, IonBackButton, IonIcon, IonSegment, IonSegmentButton, IonText
 } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { FavoriteService } from '../../services/favorite.service';
@@ -19,13 +20,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./favorites.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, RouterModule,
+    CommonModule, RouterModule, FormsModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonList, IonItem,
-    IonThumbnail, IonLabel, IonButton, IonButtons, IonIcon
+    IonThumbnail, IonLabel, IonButton, IonButtons, IonBackButton, IonIcon, IonSegment, IonSegmentButton, IonText
   ]
 })
 export class FavoritesPage implements OnDestroy {
   favorites: Favorite[] = [];
+  segmentValue = 'all';
   private favoriteSubscription?: Subscription;
   private favoriteUid = '';
 

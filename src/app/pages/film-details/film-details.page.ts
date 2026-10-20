@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonButtons, IonIcon, IonBadge,
-  IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSpinner
+  IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonButtons, IonBackButton, IonIcon, IonBadge,
+  IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSpinner
 } from '@ionic/angular';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
@@ -20,8 +20,8 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule, RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonButtons, IonIcon, IonBadge,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSpinner
+    IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton, IonButtons, IonBackButton, IonIcon, IonBadge,
+    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSpinner
   ]
 })
 export class FilmDetailsPage implements OnInit, OnDestroy {

@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter,
-  IonButton, IonButtons, IonIcon, IonSearchbar, IonSkeletonText
+  IonButton, IonButtons, IonIcon, IonSearchbar, IonSkeletonText,
+  IonMenuButton, IonBackButton
 } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { MovieService } from '../services/movie.service';
 import { FavoriteService } from '../services/favorite.service';
 import { AuthService } from '../services/auth.service';
 import { Movie } from '../models/movie.model';
+import { FeaturedCardComponent } from '../components/featured-card/featured-card.component';
 import { addIcons } from 'ionicons';
-import { heart, heartOutline, people, peopleOutline, person, personCircleOutline, settings, settingsOutline, play, arrowForwardOutline, filmOutline, search } from 'ionicons/icons';
+import { heart, heartOutline, people, peopleOutline, person, personCircleOutline, settings, settingsOutline, play, arrowForwardOutline, filmOutline, search, ellipsisHorizontal, ellipsisVertical, create, helpCircle, personCircle, star } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +24,8 @@ import { Subscription } from 'rxjs';
   imports: [
     CommonModule, FormsModule, RouterModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonFooter,
-    IonButton, IonButtons, IonIcon, IonSearchbar, IonSkeletonText
+    IonButton, IonButtons, IonIcon, IonSearchbar, IonSkeletonText,
+    IonMenuButton, IonBackButton, FeaturedCardComponent
   ]
 })
 export class HomePage implements OnInit, OnDestroy {
@@ -45,7 +48,11 @@ export class HomePage implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router
   ) {
-    addIcons({ heart, heartOutline, people, peopleOutline, person, personCircleOutline, settings, settingsOutline, play, arrowForwardOutline, filmOutline, search });
+    addIcons({
+      heart, heartOutline, people, peopleOutline, person, personCircleOutline,
+      settings, settingsOutline, play, arrowForwardOutline, filmOutline, search,
+      ellipsisHorizontal, ellipsisVertical, create, helpCircle, personCircle, star
+    });
   }
 
   async ngOnInit() {

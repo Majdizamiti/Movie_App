@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonSegment, IonSegmentButton,
-  IonLabel, IonList, IonItem, IonAvatar, IonBadge, IonButton, IonButtons,
+  IonLabel, IonList, IonItem, IonAvatar, IonBadge, IonButton, IonButtons, IonBackButton,
   IonIcon, IonInput, IonTextarea, IonSpinner
 } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { arrowBack, createOutline, trashOutline, addOutline, closeOutline } from
   imports: [
     CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter,
     IonSegment, IonSegmentButton, IonLabel, IonList, IonItem, IonAvatar, IonBadge,
-    IonButton, IonButtons, IonIcon, IonInput, IonTextarea, IonSpinner
+    IonButton, IonButtons, IonBackButton, IonIcon, IonInput, IonTextarea, IonSpinner
   ]
 })
 export class AdminDashboardPage implements OnInit {

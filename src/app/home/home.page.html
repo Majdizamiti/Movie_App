@@ -1,12 +1,14 @@
 <ion-header>
   <ion-toolbar class="home-toolbar">
-    <ion-title><span class="brand-dot">M</span> MOVIE<span class="brand-light">VERSE</span></ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="secondary">
       <ion-button aria-label="Favorites" (click)="goToFavorites()"><ion-icon name="heart-outline" slot="icon-only"></ion-icon></ion-button>
       <ion-button aria-label="Movie matches" (click)="goToMatching()"><ion-icon name="people-outline" slot="icon-only"></ion-icon></ion-button>
-      <ion-button aria-label="Profile" (click)="goToProfile()"><ion-icon name="person-circle-outline" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button aria-label="Profile" (click)="goToProfile()"><ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon></ion-button>
       <ion-button *ngIf="isAdmin()" aria-label="Admin dashboard" (click)="goToAdmin()"><ion-icon name="settings-outline" slot="icon-only"></ion-icon></ion-button>
     </ion-buttons>
+    <ion-title><span class="brand-dot">M</span> MOVIE<span class="brand-light">VERSE</span></ion-title>
   </ion-toolbar>
   <ion-toolbar class="search-toolbar">
     <div class="search-wrap"><ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearch()" placeholder="Search movies, genres..." animated="true" aria-label="Search movies"></ion-searchbar></div>
@@ -15,19 +17,17 @@
 
 <ion-content class="discover-content">
   <main class="page-shell discover-shell">
-    <section class="hero-panel" *ngIf="movies.length > 0" (click)="viewDetails(movies[0])" tabindex="0" role="button" aria-label="View featured movie">
-      <img class="hero-backdrop" [src]="movies[0].backdropPath || movies[0].posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'" [alt]="movies[0].title" />
-      <div class="hero-shade"></div>
-      <div class="hero-copy">
-        <span class="eyebrow"><span class="live-dot"></span> YOUR NEXT FAVORITE FILM</span>
-        <p class="hero-kicker">FEATURED TITLE</p>
-        <h1>{{ movies[0].title }}</h1>
-        <p class="hero-description">{{ movies[0].overview || 'Discover your next great story. Explore popular movies and build your personal watchlist.' }}</p>
-        <div class="hero-meta"><span class="rating-pill">★ {{ movies[0].voteAverage | number:'1.1-1' }}</span><span>{{ movies[0].releaseDate | date:'yyyy' }}</span><span class="meta-divider"></span><span>Popular pick</span></div>
-        <ion-button class="hero-button" (click)="$event.stopPropagation(); viewDetails(movies[0])"><ion-icon name="play" slot="start"></ion-icon> Explore movie</ion-button>
-      </div>
-      <div class="hero-index"><span>01</span><span class="hero-index-line"></span><span>FEATURED</span></div>
-    </section>
+    <app-featured-card
+      *ngIf="movies.length > 0"
+      index="01"
+      [title]="movies[0].title"
+      [description]="movies[0].overview || 'Discover your next great story. Explore popular movies and build your personal watchlist.'"
+      [rating]="movies[0].voteAverage || 8.5"
+      [year]="2026"
+      tag="Popular pick"
+      [image]="movies[0].backdropPath || movies[0].posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'"
+      (explore)="viewDetails(movies[0])">
+    </app-featured-card>
 
     <section class="discover-intro">
       <div><p class="eyebrow">A WORLD OF STORIES</p><h2>{{ searchQuery ? 'Search results' : 'Find your next obsession' }}</h2><p>Explore the movies everyone is talking about.</p></div>

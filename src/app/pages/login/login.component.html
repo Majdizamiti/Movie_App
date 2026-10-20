@@ -10,21 +10,21 @@
     <section class="auth-showcase" aria-label="MovieVerse introduction">
       <a class="auth-wordmark" routerLink="/login"><span class="wordmark-icon"><ion-icon name="film-outline"></ion-icon></span><span>MOVIE<span>VERSE</span></span></a>
       <div class="showcase-copy">
-        <p class="auth-eyebrow"><span></span> YOUR PERSONAL CINEMA</p>
-        <h1>Every story.<br><span>One place.</span></h1>
-        <p class="showcase-description">Discover your next obsession, build your watchlist, and find people who love the same films you do.</p>
+        <ion-text color="secondary"><p class="auth-eyebrow"><span></span> YOUR PERSONAL CINEMA</p></ion-text>
+        <ion-text color="primary"><h1>Every story.<br><span>One place.</span></h1></ion-text>
+        <ion-text color="medium"><p class="showcase-description">Discover your next obsession, build your watchlist, and find people who love the same films you do.</p></ion-text>
         <div class="showcase-points"><span><ion-icon name="checkmark-circle-outline"></ion-icon> Curated discoveries</span><span><ion-icon name="checkmark-circle-outline"></ion-icon> Your personal watchlist</span><span><ion-icon name="checkmark-circle-outline"></ion-icon> Movie matches with friends</span></div>
       </div>
-      <p class="showcase-caption">A good film stays with you.</p>
+      <ion-text color="medium"><p class="showcase-caption">A good film stays with you.</p></ion-text>
     </section>
 
     <section class="auth-form-column">
       <ion-card class="auth-card login-card">
         <ion-card-header>
           <div class="auth-mobile-brand"><span class="auth-brand-mark"><ion-icon name="film-outline"></ion-icon></span><span>MOVIEVERSE</span></div>
-          <p class="form-eyebrow">WELCOME BACK</p>
-          <h2>Sign in to your account</h2>
-          <p class="form-subtitle">Your next favorite movie is waiting.</p>
+          <ion-text color="secondary"><p class="form-eyebrow">WELCOME BACK</p></ion-text>
+          <ion-text color="primary"><h2>Sign in to your account</h2></ion-text>
+          <ion-text color="medium"><p class="form-subtitle">Your next favorite movie is waiting.</p></ion-text>
         </ion-card-header>
         <ion-card-content>
           <form (ngSubmit)="onLogin()" #loginForm="ngForm">

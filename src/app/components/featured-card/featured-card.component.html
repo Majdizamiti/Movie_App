@@ -1,0 +1,39 @@
+<ion-card class="featured-card" [style.--poster]="'url(' + image + ')'">
+  <div class="overlay"></div>
+
+  <ion-card-content class="content">
+    <!-- top row -->
+    <div class="top-row">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Your next favorite film
+      </span>
+      <span class="index">
+        <strong>{{ index }}</strong>
+        <span class="line"></span>
+        <span class="featured-label">Featured</span>
+      </span>
+    </div>
+
+    <!-- bottom block -->
+    <div class="bottom">
+      <p class="label">Featured title</p>
+      <h2 class="title">{{ title }}</h2>
+      <p class="description">{{ description }}</p>
+
+      <div class="meta">
+        <span class="rating">
+          <ion-icon name="star"></ion-icon>{{ rating }}
+        </span>
+        <span class="year">{{ year }}</span>
+        <span class="sep">•</span>
+        <span class="tag">{{ tag }}</span>
+      </div>
+
+      <ion-button class="explore-btn" shape="round" (click)="onExplore()">
+        <ion-icon slot="start" name="play"></ion-icon>
+        EXPLORE MOVIE
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

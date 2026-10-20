@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonSpinner,
-  IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonButtons, IonIcon
+  IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonIcon
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { MatchingService, MovieRecommendation } from '../../services/matching.service';
@@ -18,7 +18,7 @@ import { arrowBack, heartOutline, filmOutline } from 'ionicons/icons';
   standalone: true,
   imports: [
     CommonModule, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonSpinner,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonButtons, IonIcon
+    IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonButtons, IonBackButton, IonIcon
   ]
 })
 export class MatchingPage implements OnInit {

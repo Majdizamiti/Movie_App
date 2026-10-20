@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonHeader, IonToolbar, IonTitle, IonContent, IonFooter,
+  IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButtons, IonBackButton,
   IonCard, IonCardHeader, IonCardContent,
   IonList, IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonInputPasswordToggle, IonSpinner
 } from '@ionic/angular';
@@ -19,7 +19,7 @@ import { cameraOutline, arrowBack, filmOutline, personOutline, mailOutline, lock
   standalone: true,
   imports: [
     CommonModule, FormsModule, RouterModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonFooter,
+    IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButtons, IonBackButton,
     IonCard, IonCardHeader, IonCardContent,
     IonList, IonItem, IonInput, IonButton, IonText, IonIcon, IonAvatar, IonInputPasswordToggle, IonSpinner
   ]

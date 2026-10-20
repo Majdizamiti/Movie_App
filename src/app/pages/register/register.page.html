@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>Create account</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,9 +18,9 @@
             <ion-icon name="camera-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </div>
-        <p class="form-eyebrow">JOIN THE COMMUNITY</p>
-        <h1>Create your account</h1>
-        <p class="register-subtitle">Save films, discover stories, and connect through cinema.</p>
+        <ion-text color="secondary"><p class="form-eyebrow">JOIN THE COMMUNITY</p></ion-text>
+        <ion-text color="primary"><h1>Create your account</h1></ion-text>
+        <ion-text color="medium"><p class="register-subtitle">Save films, discover stories, and connect through cinema.</p></ion-text>
       </ion-card-header>
       <ion-card-content>
         <form (ngSubmit)="onRegister()" #registerForm="ngForm">
