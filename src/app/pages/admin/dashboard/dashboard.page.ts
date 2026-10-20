@@ -43,7 +43,7 @@ export class AdminDashboardPage implements OnInit {
     private readonly adminService: AdminService,
     readonly authService: AuthService,
     private readonly router: Router,
-    private readonly alertController: AlertController
+    private readonly alertCtrl: AlertController
   ) {
     addIcons({ arrowBack, createOutline, trashOutline, addOutline, closeOutline });
   }
@@ -161,27 +161,23 @@ export class AdminDashboardPage implements OnInit {
   }
 
   async deleteMovie(movie: Movie): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Delete Movie',
-      message: `Are you sure you want to delete the custom movie “${movie.title}”?`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: async () => {
-            await this.runSafely(async () => {
-              await this.adminService.deleteMovie(movie.id);
-              this.movies = this.movies.filter(item => item.id !== movie.id);
-              if (this.editingMovieId === movie.id) this.cancelMovieEdit();
-              this.successMessage = 'Custom movie deleted.';
-            });
-          }
+    const alert = await this.alertCtrl.create({
+      header: 'Are you sure ?',
+      message: `Do you really want to delete this movie "${movie.title}" ?`,
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel'
+      }, {
+        text: 'Delete',
+        handler: async () => {
+          await this.runSafely(async () => {
+            await this.adminService.deleteMovie(movie.id);
+            this.movies = this.movies.filter(item => item.id !== movie.id);
+            if (this.editingMovieId === movie.id) this.cancelMovieEdit();
+            this.successMessage = 'Custom movie deleted.';
+          });
         }
-      ]
+      }]
     });
     await alert.present();
   }
