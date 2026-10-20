@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ movie?.title || 'Film Details' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="details-content">
+  <div *ngIf="isLoading && !movie" class="details-status" role="status">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading movie details…</p>
+  </div>
+  <div *ngIf="errorMessage" class="details-error" role="alert">
+    <p>{{ errorMessage }}</p>
+    <ion-button *ngIf="!movie" fill="outline" (click)="loadMovie()">Try again</ion-button>
+  </div>
+
+  <ng-container *ngIf="movie as details">
+    <div class="backdrop-container">
+      <img [src]="details.backdropPath || details.posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'" [alt]="details.title" />
+    </div>
+
+    <main class="page-shell details-shell">
+      <h1 style="font-weight: 800; font-size: 26px; margin-bottom: 8px;">{{ details.title }}</h1>
+
+      <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px;">
+        <ion-badge *ngIf="details.releaseDate" color="medium" style="font-size: 14px; padding: 6px 10px;">📅 {{ details.releaseDate }}</ion-badge>
+        <ion-badge *ngIf="details.voteAverage" color="warning" style="font-size: 14px; padding: 6px 10px;">⭐ {{ details.voteAverage }} / 10</ion-badge>
+      </div>
+
+      <ion-button expand="block" [color]="isFav ? 'danger' : 'primary'" [disabled]="isUpdatingFavorite" (click)="toggleFavorite()" style="margin-bottom: 24px;">
+        <ion-icon [name]="isFav ? 'heart' : 'heart-outline'" slot="start"></ion-icon>
+        {{ isFav ? 'Remove from Favorites' : 'Add to Favorites ❤️' }}
+      </ion-button>
+      <p *ngIf="favoriteError" class="details-error" role="alert">{{ favoriteError }}</p>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Overview</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p style="line-height: 1.6;">{{ details.overview || 'No overview is available for this movie.' }}</p>
+        </ion-card-content>
+      </ion-card>
+    </main>
+  </ng-container>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,14 @@
+.admin-content { --background: radial-gradient(ellipse at 50% -10%, rgba(229,9,20,.07), transparent 45%), var(--app-bg); }
+.admin-content ion-header ion-toolbar[color="danger"] { --background: rgba(9,10,15,.94); }
+.admin-content ion-segment { --background: #171923; padding: 5px; border: 1px solid var(--app-line); border-radius: 13px; }
+.admin-content ion-segment-button { --border-radius: 9px; --color: #a0a5b4; --color-checked: #fff; --indicator-color: var(--app-accent); min-height: 42px; font-weight: 700; }
+.admin-content ion-list { padding: 0; background: transparent; }
+.admin-content ion-list ion-item { --background: var(--app-surface); --padding-start: 12px; --inner-padding-end: 10px; margin-bottom: 10px; border: 1px solid var(--app-line); border-radius: 14px; }
+.admin-content ion-list ion-avatar { width: 46px !important; height: 46px !important; }
+.admin-content ion-list ion-label h2 { font-size: .9rem; line-height: 1.5; }
+.admin-content ion-list ion-label p { font-size: .75rem; line-height: 1.5; }
+.admin-form-container { width: min(100%, 720px); margin: 18px auto; padding: clamp(16px,3vw,26px); border: 1px solid var(--app-line); border-radius: 18px; background: var(--app-surface); }
+.admin-form-container h2 { margin-top: 0; font-size: 1.25rem; letter-spacing: -.03em; }
+.admin-form-container ion-item { --background: #191c26; --border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--app-line); border-radius: 12px; }
+.admin-form-container ion-button { margin-top: 18px !important; }
+@media (max-width: 520px) { .admin-content ion-list ion-button { --padding-start: 8px; --padding-end: 8px; font-size: .72rem; } }

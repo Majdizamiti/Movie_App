@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" aria-label="Back to movies">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>For Your Taste</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="matching-content">
+  <main class="page-shell">
+    <section class="section-heading">
+      <div><h2>Picked for you</h2><p>Recommendations inspired by the genres in your favorites.</p></div>
+    </section>
+
+    <div *ngIf="isLoading" class="loading-state" role="status" aria-live="polite">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Finding your next favorite movie…</p>
+    </div>
+
+    <div *ngIf="!isLoading && errorMessage" class="empty-state" role="alert">
+      <p>{{ errorMessage }}</p><ion-button (click)="retry()">Try again</ion-button>
+    </div>
+
+    <section class="movie-grid" *ngIf="!isLoading && !errorMessage && recommendations.length">
+      <ion-card class="match-card" button="true" *ngFor="let item of recommendations"
+        (click)="viewDetails(item.movie)" [attr.aria-label]="'View details for ' + item.movie.title">
+        <img [src]="item.movie.posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'"
+          [alt]="item.movie.title + ' poster'" loading="lazy" />
+        <ion-card-header>
+          <ion-card-title>{{ item.movie.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ item.reason }}</p>
+          <p>★ {{ item.movie.voteAverage | number:'1.1-1' }}</p>
+        </ion-card-content>
+      </ion-card>
+    </section>
+
+    <div *ngIf="!isLoading && !errorMessage && recommendations.length === 0" class="empty-state">
+      <ion-icon name="film-outline"></ion-icon>
+      <h3>No recommendations yet</h3>
+      <p>Add a few movies to your favorites and we’ll use their genres to suggest similar titles.</p>
+      <ion-button (click)="goBack()"><ion-icon name="heart-outline" slot="start"></ion-icon>Browse movies</ion-button>
+    </div>
+  </main>
+</ion-content>
+<ion-footer><ion-toolbar><ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title></ion-toolbar></ion-footer>

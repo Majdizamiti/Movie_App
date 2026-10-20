@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-content register-content">
+  <main class="register-shell">
+    <a class="register-wordmark" routerLink="/login"><span class="register-mark"><ion-icon name="film-outline"></ion-icon></span><span>MOVIE<span>VERSE</span></span></a>
+    <ion-card class="auth-card register-card">
+      <ion-card-header>
+        <div class="register-avatar-wrap">
+          <ion-avatar class="register-avatar"><img [src]="photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Profile photo preview" /></ion-avatar>
+          <ion-button class="camera-button" fill="solid" size="small" aria-label="Choose profile photo" (click)="takePhoto()" [disabled]="isCapturing">
+            <ion-icon name="camera-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+        <p class="form-eyebrow">JOIN THE COMMUNITY</p>
+        <h1>Create your account</h1>
+        <p class="register-subtitle">Save films, discover stories, and connect through cinema.</p>
+      </ion-card-header>
+      <ion-card-content>
+        <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+          <ion-list lines="none" class="auth-form-list register-form-list">
+            <div class="register-name-row">
+              <ion-item class="auth-field"><ion-input name="firstName" label="First name" labelPlacement="floating" placeholder="John" autocomplete="given-name" [(ngModel)]="firstName" required></ion-input></ion-item>
+              <ion-item class="auth-field"><ion-input name="lastName" label="Last name" labelPlacement="floating" placeholder="Doe" autocomplete="family-name" [(ngModel)]="lastName" required></ion-input></ion-item>
+            </div>
+            <ion-item class="auth-field"><ion-input name="age" label="Age" labelPlacement="floating" type="number" min="13" max="120" [(ngModel)]="age" required></ion-input></ion-item>
+            <ion-item class="auth-field"><ion-icon name="mail-outline" slot="start" aria-hidden="true"></ion-icon><ion-input name="email" type="email" label="Email address" labelPlacement="floating" placeholder="you@example.com" autocomplete="email" inputmode="email" [(ngModel)]="email" required email></ion-input></ion-item>
+            <ion-item class="auth-field"><ion-icon name="lock-closed-outline" slot="start" aria-hidden="true"></ion-icon><ion-input name="password" type="password" label="Password" labelPlacement="floating" placeholder="At least 6 characters" autocomplete="new-password" [(ngModel)]="password" required minlength="6"><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input></ion-item>
+          </ion-list>
+          <ion-text color="danger" *ngIf="errorMessage"><p class="auth-error" role="alert">{{ errorMessage }}</p></ion-text>
+          <ion-button type="submit" expand="block" class="auth-submit" [disabled]="isRegistering || isCapturing || !registerForm.valid">
+            <ion-spinner *ngIf="isRegistering" name="crescent" slot="start"></ion-spinner>
+            {{ isRegistering ? 'Creating account…' : 'Create account' }}
+            <ion-icon *ngIf="!isRegistering" name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </form>
+        <p class="auth-footer">Already have an account? <a routerLink="/login">Sign in</a></p>
+      </ion-card-content>
+    </ion-card>
+    <p class="register-footnote">Made for people who love a great story.</p>
+  </main>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title>
+  </ion-toolbar>
+</ion-footer>

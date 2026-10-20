@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-content login-content">
+  <div class="auth-background-art" aria-hidden="true"><span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span><span class="art-glow"></span></div>
+  <main class="auth-layout">
+    <section class="auth-showcase" aria-label="MovieVerse introduction">
+      <a class="auth-wordmark" routerLink="/login"><span class="wordmark-icon"><ion-icon name="film-outline"></ion-icon></span><span>MOVIE<span>VERSE</span></span></a>
+      <div class="showcase-copy">
+        <p class="auth-eyebrow"><span></span> YOUR PERSONAL CINEMA</p>
+        <h1>Every story.<br><span>One place.</span></h1>
+        <p class="showcase-description">Discover your next obsession, build your watchlist, and find people who love the same films you do.</p>
+        <div class="showcase-points"><span><ion-icon name="checkmark-circle-outline"></ion-icon> Curated discoveries</span><span><ion-icon name="checkmark-circle-outline"></ion-icon> Your personal watchlist</span><span><ion-icon name="checkmark-circle-outline"></ion-icon> Movie matches with friends</span></div>
+      </div>
+      <p class="showcase-caption">A good film stays with you.</p>
+    </section>
+
+    <section class="auth-form-column">
+      <ion-card class="auth-card login-card">
+        <ion-card-header>
+          <div class="auth-mobile-brand"><span class="auth-brand-mark"><ion-icon name="film-outline"></ion-icon></span><span>MOVIEVERSE</span></div>
+          <p class="form-eyebrow">WELCOME BACK</p>
+          <h2>Sign in to your account</h2>
+          <p class="form-subtitle">Your next favorite movie is waiting.</p>
+        </ion-card-header>
+        <ion-card-content>
+          <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+            <ion-list lines="none" class="auth-form-list">
+              <ion-item class="auth-field">
+                <ion-icon name="mail-outline" slot="start" aria-hidden="true"></ion-icon>
+                <ion-input name="email" type="email" label="Email address" labelPlacement="floating" placeholder="you@example.com" autocomplete="email" inputmode="email" [(ngModel)]="email" required email></ion-input>
+              </ion-item>
+              <ion-item class="auth-field">
+                <ion-icon name="lock-closed-outline" slot="start" aria-hidden="true"></ion-icon>
+                <ion-input name="password" type="password" label="Password" labelPlacement="floating" placeholder="Enter your password" autocomplete="current-password" [(ngModel)]="password" required>
+                  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+              </ion-item>
+            </ion-list>
+            <ion-text color="danger" *ngIf="errorMessage"><p class="auth-error" role="alert">{{ errorMessage }}</p></ion-text>
+            <ion-button type="submit" expand="block" class="auth-submit" [disabled]="isLoggingIn || !loginForm.valid">
+              <ion-spinner *ngIf="isLoggingIn" name="crescent" slot="start"></ion-spinner>
+              {{ isLoggingIn ? 'Signing in…' : 'Sign in' }}
+              <ion-icon *ngIf="!isLoggingIn" name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+          </form>
+          <div class="auth-divider"><span>NEW TO MOVIEVERSE?</span></div>
+          <ion-button expand="block" fill="outline" class="auth-secondary" routerLink="/register">Create an account</ion-button>
+          <p class="auth-terms">By continuing, you agree to use MovieVerse responsibly.</p>
+        </ion-card-content>
+      </ion-card>
+    </section>
+  </main>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title>
+  </ion-toolbar>
+</ion-footer>

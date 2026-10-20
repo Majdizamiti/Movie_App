@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>User Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user" class="profile-content">
+  <main class="page-shell profile-shell">
+    <div class="profile-header ion-text-center ion-margin-bottom">
+      <ion-avatar style="margin: 0 auto 12px auto; width: 90px; height: 90px;">
+        <img [src]="user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+      </ion-avatar>
+      <ion-button fill="outline" size="small" (click)="updatePhoto()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon> Change Photo
+      </ion-button>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Full Name</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.firstName }} {{ user.lastName }}</h2>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Email Address</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.email }}</h2>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Age</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.age }} years old</h2>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Role</p>
+              <h2 style="font-weight: 700; font-size: 16px;">{{ user.role | uppercase }}</h2>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>
+              <p style="font-size: 12px; color: var(--ion-color-medium);">Account Status</p>
+              <p style="margin-top: 4px;">
+                <ion-badge [color]="user.active ? 'success' : 'danger'" style="padding: 6px 12px; border-radius: 8px;">
+                  {{ user.active ? 'Active' : 'Disabled' }}
+                </ion-badge>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" color="danger" (click)="logout()" class="ion-margin-top">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon> Logout
+    </ion-button>
+</main></ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title>
+  </ion-toolbar>
+</ion-footer>

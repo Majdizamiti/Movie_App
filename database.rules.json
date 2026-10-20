@@ -1,0 +1,24 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('active').val() === true && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('active').val() === true && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('active').val() === true && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".validate": "newData.hasChildren(['uid', 'firstName', 'lastName', 'email', 'role', 'active', 'createdAt']) && newData.child('uid').val() === $uid && (root.child('users').child(auth.uid).child('role').val() === 'admin' || (newData.child('role').val() === 'user' && (!data.exists() || (newData.child('role').val() === data.child('role').val() && newData.child('active').val() === data.child('active').val()))))"
+      }
+    },
+    "adminMovies": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('active').val() === true",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('active').val() === true && root.child('users').child(auth.uid).child('role').val() === 'admin'"
+    },
+    "favorites": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid && root.child('users').child(auth.uid).child('active').val() === true",
+        ".write": "auth != null && auth.uid === $uid && root.child('users').child(auth.uid).child('active').val() === true"
+      }
+    }
+  }
+}

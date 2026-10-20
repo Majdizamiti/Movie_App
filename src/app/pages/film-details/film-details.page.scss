@@ -1,0 +1,14 @@
+.details-content { --background: var(--app-bg); }
+.details-status, .details-error { display: grid; justify-items: center; gap: 12px; padding: 48px 20px; text-align: center; color: var(--app-muted); }
+.details-error p { margin: 0; }
+.details-shell { padding-top: 0; }
+.backdrop-container { position: relative; width: 100%; height: clamp(250px, 42vw, 490px); margin: 0 calc((min(100vw - 32px, 1240px) - 100vw) / 2) 24px; overflow: hidden; border-radius: 0 0 22px 22px; background: #171923; }
+.backdrop-container img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; filter: brightness(.82); }
+.backdrop-container::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg,var(--app-bg) 0%,rgba(9,10,15,.05) 75%),linear-gradient(90deg,rgba(9,10,15,.3),transparent); }
+.details-shell > h1 { max-width: 850px; margin: 0 0 14px; font-size: clamp(1.9rem,5vw,3.2rem) !important; line-height: 1.06; letter-spacing: -.05em; }
+.details-shell > div[style*="display: flex"] { flex-wrap: wrap; gap: 9px !important; }
+.details-shell ion-badge { border-radius: 8px; padding: 8px 11px !important; }
+.details-shell > ion-button { max-width: 360px; margin: 22px 0 26px !important; }
+.details-shell ion-card { max-width: 850px; }
+.details-shell ion-card-content p { color: #b9bdc9; font-size: 1rem; line-height: 1.8 !important; }
+@media (max-width: 520px) { .details-shell { width: 100%; padding-inline: 18px; } .backdrop-container { margin-inline: 0; border-radius: 0 0 18px 18px; } }

@@ -1,0 +1,8 @@
+.favorites-content { --background: radial-gradient(ellipse at 50% -10%, rgba(229,9,20,.08), transparent 45%), var(--app-bg); }
+.favorites-list { padding: 0; background: transparent; }
+.favorites-list ion-item { --background: var(--app-surface); --padding-start: 10px; --inner-padding-end: 10px; margin-bottom: 12px; border: 1px solid var(--app-line); border-radius: 15px; overflow: hidden; }
+.favorites-list ion-label h2 { font-size: .96rem; font-weight: 750; }
+.favorites-list ion-label p { margin-top: 6px; color: var(--app-muted); font-size: .78rem; }
+.favorites-list ion-thumbnail { --border-radius: 9px; width: 61px; height: 88px; margin: 10px 12px 10px 4px; }
+.favorites-list ion-thumbnail img { object-fit: cover; }
+.favorites-content > main > div[style*="text-align: center"] { padding: 40px 20px; margin-top: 20px !important; border: 1px dashed var(--app-line); border-radius: 18px; background: rgba(255,255,255,.015); }

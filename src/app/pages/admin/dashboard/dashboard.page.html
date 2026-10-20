@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start"><ion-button (click)="goBack()" aria-label="Back"><ion-icon name="arrow-back" slot="icon-only"></ion-icon></ion-button></ion-buttons>
+    <ion-title>Admin Dashboard</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segment" (ionChange)="onSegmentChange()">
+      <ion-segment-button value="users"><ion-label>Users</ion-label></ion-segment-button>
+      <ion-segment-button value="movies"><ion-label>Custom movies</ion-label></ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="admin-content">
+  <main class="page-shell">
+    <div *ngIf="isLoading" class="loading-state" role="status"><ion-spinner name="crescent"></ion-spinner><p>Saving changes…</p></div>
+    <p *ngIf="errorMessage" class="error-message" role="alert">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success-message" role="status">{{ successMessage }}</p>
+
+    <section *ngIf="segment === 'users'">
+      <div class="section-heading"><div><h2>User management</h2><p>Review accounts and control access.</p></div></div>
+      <div class="admin-form-container">
+        <h3>{{ editingUserUid ? 'Update user profile' : 'Create user account' }}</h3>
+        <ion-item><ion-input label="First name *" labelPlacement="stacked" [(ngModel)]="userForm.firstName" maxlength="160"></ion-input></ion-item>
+        <ion-item><ion-input label="Last name *" labelPlacement="stacked" [(ngModel)]="userForm.lastName" maxlength="160"></ion-input></ion-item>
+        <ion-item><ion-input label="Email *" labelPlacement="stacked" [(ngModel)]="userForm.email" type="email" maxlength="254"></ion-input></ion-item>
+        <ion-item><ion-input *ngIf="!editingUserUid" label="Temporary password * (min. 8 characters)" labelPlacement="stacked" [(ngModel)]="userForm.password" type="password" autocomplete="new-password"></ion-input></ion-item>
+        <ion-item><ion-input label="Age" labelPlacement="stacked" [(ngModel)]="userForm.age" type="number" min="13" max="120"></ion-input></ion-item>
+        <ion-button expand="block" (click)="saveUser()" [disabled]="isLoading"><ion-icon [name]="editingUserUid ? 'create-outline' : 'add-outline'" slot="start"></ion-icon>{{ editingUserUid ? 'Save user changes' : 'Create user' }}</ion-button>
+        <ion-button *ngIf="editingUserUid" expand="block" fill="clear" (click)="cancelUserEdit()"><ion-icon name="close-outline" slot="start"></ion-icon>Cancel edit</ion-button>
+      </div>
+
+      <ion-list lines="none">
+        <ion-item *ngFor="let user of users">
+          <ion-avatar slot="start"><img [src]="user.photoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" [alt]="user.firstName + ' profile photo'"></ion-avatar>
+          <ion-label>
+            <h2>{{ user.firstName }} {{ user.lastName }} <ion-badge color="medium">{{ user.role }}</ion-badge></h2>
+            <p>{{ user.email }}</p>
+            <ion-badge [color]="user.active ? 'success' : 'danger'">{{ user.active ? 'Enabled' : 'Disabled' }}</ion-badge>
+          </ion-label>
+          <ion-button slot="end" fill="clear" aria-label="Edit user" [disabled]="isLoading" (click)="editUser(user)"><ion-icon name="create-outline" slot="icon-only"></ion-icon></ion-button>
+          <ion-button slot="end" size="small" [color]="user.active ? 'danger' : 'success'" [disabled]="isLoading || user.uid === authService.getCurrentUser()?.uid" (click)="toggleUserStatus(user)">
+            {{ user.active ? 'Disable' : 'Enable' }}
+          </ion-button>
+        </ion-item>
+      </ion-list>
+      <p class="helper-text">User account creation and enable/disable actions run through trusted Firebase Cloud Functions. Public registration cannot assign the administrator role.</p>
+    </section>
+
+    <section *ngIf="segment === 'movies'">
+      <div class="section-heading"><div><h2>{{ editingMovieId === null ? 'Add a custom movie' : 'Edit custom movie' }}</h2><p>These records are stored separately from TMDB and can be edited or deleted.</p></div></div>
+      <div class="admin-form-container">
+        <ion-item><ion-input label="Title *" labelPlacement="stacked" [(ngModel)]="movieForm.title" maxlength="160" required></ion-input></ion-item>
+        <ion-item><ion-textarea label="Overview" labelPlacement="stacked" [(ngModel)]="movieForm.overview" rows="3" maxlength="3000"></ion-textarea></ion-item>
+        <ion-item><ion-input label="Poster image URL" labelPlacement="stacked" [(ngModel)]="movieForm.posterPath" type="url"></ion-input></ion-item>
+        <ion-item><ion-input label="Release date" labelPlacement="stacked" [(ngModel)]="movieForm.releaseDate" type="date"></ion-input></ion-item>
+        <ion-item><ion-input label="Rating (0–10)" labelPlacement="stacked" [(ngModel)]="movieForm.voteAverage" type="number" min="0" max="10"></ion-input></ion-item>
+        <ion-button expand="block" (click)="saveMovie()" [disabled]="isLoading"><ion-icon [name]="editingMovieId === null ? 'add-outline' : 'create-outline'" slot="start"></ion-icon>{{ editingMovieId === null ? 'Add movie' : 'Save changes' }}</ion-button>
+        <ion-button *ngIf="editingMovieId !== null" expand="block" fill="clear" (click)="cancelMovieEdit()"><ion-icon name="close-outline" slot="start"></ion-icon>Cancel edit</ion-button>
+      </div>
+
+      <div class="section-heading"><div><h2>Custom movie catalogue</h2><p>{{ movies.length }} administrator-managed titles</p></div></div>
+      <ion-list lines="none">
+        <ion-item *ngFor="let movie of movies">
+          <ion-avatar slot="start"><img [src]="movie.posterPath || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" [alt]="movie.title + ' poster'"></ion-avatar>
+          <ion-label><h2>{{ movie.title }}</h2><p>{{ movie.releaseDate || 'Release date unavailable' }} · ★ {{ movie.voteAverage | number:'1.1-1' }}</p></ion-label>
+          <ion-button slot="end" fill="clear" aria-label="Edit movie" (click)="editMovie(movie)"><ion-icon name="create-outline" slot="icon-only"></ion-icon></ion-button>
+          <ion-button slot="end" fill="clear" color="danger" aria-label="Delete movie" (click)="deleteMovie(movie)"><ion-icon name="trash-outline" slot="icon-only"></ion-icon></ion-button>
+        </ion-item>
+      </ion-list>
+    </section>
+  </main>
+</ion-content>
+<ion-footer><ion-toolbar><ion-title size="small">MOVIEVERSE · Admin tools</ion-title></ion-toolbar></ion-footer>

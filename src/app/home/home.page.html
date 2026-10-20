@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar class="home-toolbar">
+    <ion-title><span class="brand-dot">M</span> MOVIE<span class="brand-light">VERSE</span></ion-title>
+    <ion-buttons slot="end">
+      <ion-button aria-label="Favorites" (click)="goToFavorites()"><ion-icon name="heart-outline" slot="icon-only"></ion-icon></ion-button>
+      <ion-button aria-label="Movie matches" (click)="goToMatching()"><ion-icon name="people-outline" slot="icon-only"></ion-icon></ion-button>
+      <ion-button aria-label="Profile" (click)="goToProfile()"><ion-icon name="person-circle-outline" slot="icon-only"></ion-icon></ion-button>
+      <ion-button *ngIf="isAdmin()" aria-label="Admin dashboard" (click)="goToAdmin()"><ion-icon name="settings-outline" slot="icon-only"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="search-toolbar">
+    <div class="search-wrap"><ion-searchbar [(ngModel)]="searchQuery" (ionInput)="onSearch()" placeholder="Search movies, genres..." animated="true" aria-label="Search movies"></ion-searchbar></div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="discover-content">
+  <main class="page-shell discover-shell">
+    <section class="hero-panel" *ngIf="movies.length > 0" (click)="viewDetails(movies[0])" tabindex="0" role="button" aria-label="View featured movie">
+      <img class="hero-backdrop" [src]="movies[0].backdropPath || movies[0].posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'" [alt]="movies[0].title" />
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="live-dot"></span> YOUR NEXT FAVORITE FILM</span>
+        <p class="hero-kicker">FEATURED TITLE</p>
+        <h1>{{ movies[0].title }}</h1>
+        <p class="hero-description">{{ movies[0].overview || 'Discover your next great story. Explore popular movies and build your personal watchlist.' }}</p>
+        <div class="hero-meta"><span class="rating-pill">★ {{ movies[0].voteAverage | number:'1.1-1' }}</span><span>{{ movies[0].releaseDate | date:'yyyy' }}</span><span class="meta-divider"></span><span>Popular pick</span></div>
+        <ion-button class="hero-button" (click)="$event.stopPropagation(); viewDetails(movies[0])"><ion-icon name="play" slot="start"></ion-icon> Explore movie</ion-button>
+      </div>
+      <div class="hero-index"><span>01</span><span class="hero-index-line"></span><span>FEATURED</span></div>
+    </section>
+
+    <section class="discover-intro">
+      <div><p class="eyebrow">A WORLD OF STORIES</p><h2>{{ searchQuery ? 'Search results' : 'Find your next obsession' }}</h2><p>Explore the movies everyone is talking about.</p></div>
+      <span class="result-count">{{ movies.length }} titles</span>
+    </section>
+    <p *ngIf="favoriteError" class="favorite-error" role="alert">{{ favoriteError }}</p>
+
+    <section class="movie-grid movie-skeleton-grid" *ngIf="isLoading; else movieResults" aria-label="Loading movies">
+      <article class="movie-tile movie-skeleton-tile" *ngFor="let placeholder of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+        <div class="poster-frame"><ion-skeleton-text animated></ion-skeleton-text></div>
+        <div class="movie-info"><ion-skeleton-text animated class="skeleton-title"></ion-skeleton-text><ion-skeleton-text animated class="skeleton-meta"></ion-skeleton-text></div>
+      </article>
+    </section>
+    <ng-template #movieResults>
+      <section class="movie-grid" *ngIf="movies.length > 0; else emptyMovies">
+        <article class="movie-tile" *ngFor="let movie of movies; let i = index" (click)="viewDetails(movie)" tabindex="0" role="button" [attr.aria-label]="'View ' + movie.title">
+          <div class="poster-frame">
+            <img [src]="movie.posterPath || 'https://ionicframework.com/docs/img/demos/card-media.png'" [alt]="movie.title + ' poster'" loading="lazy" />
+            <span class="poster-rank" *ngIf="!searchQuery">{{ (i + 1) < 10 ? '0' + (i + 1) : i + 1 }}</span>
+            <button class="favorite-fab" type="button" [disabled]="pendingFavoriteIds.has(movie.id)" [attr.aria-label]="isFavorite(movie.id) ? 'Remove from favorites' : 'Add to favorites'" (click)="toggleFavorite(movie, $event)"><ion-icon [name]="isFavorite(movie.id) ? 'heart' : 'heart-outline'"></ion-icon></button>
+            <div class="poster-hover"><span>View details <ion-icon name="arrow-forward-outline"></ion-icon></span></div>
+          </div>
+          <div class="movie-info"><div class="movie-title-row"><h3>{{ movie.title }}</h3><span class="movie-rating">★ {{ movie.voteAverage | number:'1.1-1' }}</span></div><p>{{ movie.releaseDate | date:'yyyy' }} <span class="info-dot">·</span> Movie</p></div>
+        </article>
+      </section>
+    </ng-template>
+    <ng-template #emptyMovies>
+      <div class="empty-state" role="status">
+        <ion-icon name="film-outline"></ion-icon>
+        <h3>{{ hasLoadError ? 'Unable to load movies' : 'No movies found' }}</h3>
+        <p>{{ hasLoadError ? loadErrorMessage : 'Try a different title or clear your search.' }}</p>
+        <ion-button *ngIf="hasLoadError" fill="outline" (click)="retryMovies()">Try again</ion-button>
+      </div>
+    </ng-template>
+  </main>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title size="small">MOVIEVERSE · Stories worth staying in for.</ion-title>
+  </ion-toolbar>
+</ion-footer>

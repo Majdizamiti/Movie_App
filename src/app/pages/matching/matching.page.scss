@@ -1,0 +1,11 @@
+.matching-content { --background: radial-gradient(ellipse at 50% -10%, rgba(229,9,20,.08), transparent 45%), var(--app-bg); }
+.match-card { margin: 0 0 14px; padding: 3px; }
+.match-card ion-card-header { padding: 16px; }
+.match-card ion-card-content { padding: 0 16px 18px; }
+.match-card ion-card-title { font-size: 1rem !important; }
+.match-card ion-card-subtitle { margin-top: 5px; font-size: .78rem; }
+.match-card ion-badge { font-size: .8rem !important; padding: 7px 10px !important; border-radius: 9px !important; white-space: nowrap; }
+.poster-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 3px 0 8px; scrollbar-width: thin; scrollbar-color: #393d4a transparent; }
+.poster-scroll > div { min-width: 76px; width: 76px; }
+.poster-scroll img { width: 76px !important; height: 112px !important; border: 1px solid var(--app-line); border-radius: 9px !important; box-shadow: none !important; }
+.poster-scroll p { width: 76px !important; color: #c4c7d0; font-size: .7rem !important; }

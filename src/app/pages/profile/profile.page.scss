@@ -1,0 +1,12 @@
+.profile-content { --background: radial-gradient(ellipse at 50% -10%, rgba(229,9,20,.08), transparent 45%), var(--app-bg); }
+.profile-header { padding: 24px 0 20px; }
+.profile-header ion-avatar { width: 104px !important; height: 104px !important; padding: 3px; border: 2px solid rgba(229,9,20,.75); box-shadow: 0 0 0 7px rgba(229,9,20,.08); }
+.profile-header ion-avatar img { border-radius: 50%; object-fit: cover; }
+.profile-header ion-button { margin-top: 15px; --border-color: #454957; --color: #e7e8ee; }
+.profile-shell ion-card { max-width: 700px; margin: 0 auto; }
+.profile-shell ion-card-content { padding: 8px 16px; }
+.profile-shell ion-list { padding: 0; background: transparent; }
+.profile-shell ion-item { --background: transparent; --padding-start: 0; --inner-padding-end: 0; }
+.profile-shell ion-item h2 { margin-top: 5px; font-size: .96rem !important; }
+.profile-shell ion-item p { color: var(--app-muted); }
+.profile-shell > ion-button { max-width: 700px; margin: 18px auto 0; }
