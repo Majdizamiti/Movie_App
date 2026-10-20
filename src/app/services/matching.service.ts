@@ -10,43 +10,58 @@ export interface MovieRecommendation {
   reason: string;
 }
 
-/** Recommends titles using genres from the current user's favorite movies. */
 @Injectable({ providedIn: 'root' })
 export class MatchingService {
   constructor(
-    private readonly favorites: FavoriteService,
-    private readonly movies: MovieService
+    private readonly favoriteService: FavoriteService,
+    private readonly movieService: MovieService
   ) {}
 
+  /**
+   * Generates personalized movie recommendations for a user
+   * based on genre preferences from their favorite movies.
+   */
   async findRecommendations(user: User): Promise<MovieRecommendation[]> {
-    const favorites = await this.favorites.getFavorites(user.uid);
-    const favoriteIds = new Set(favorites.map(favorite => favorite.movieId));
-    const favoriteDetails = await Promise.all(
-      favorites.slice(0, 8).map(favorite => this.movies.getMovieDetails(favorite.movieId).catch(() => null))
-    );
-    const genreCounts = new Map<number, number>();
+    // 1. Get user's favorites
+    const favorites = await this.favoriteService.getFavorites(user.uid);
+    const favoriteIds = new Set(favorites.map(fav => fav.movieId));
 
-    for (const movie of favoriteDetails) {
+    // 2. Fetch full details of recent favorites to analyze genre preferences
+    const recentFavorites = favorites.slice(0, 8);
+    const favoriteMovies = await Promise.all(
+      recentFavorites.map(fav => this.movieService.getMovieDetails(fav.movieId).catch(() => null))
+    );
+
+    // 3. Count genre occurrences in user's favorites
+    const genreFrequency = new Map<number, number>();
+    for (const movie of favoriteMovies) {
       for (const genreId of movie?.genreIds ?? []) {
-        genreCounts.set(genreId, (genreCounts.get(genreId) ?? 0) + 1);
+        genreFrequency.set(genreId, (genreFrequency.get(genreId) ?? 0) + 1);
       }
     }
 
-    const candidates = await this.movies.getPopularMovies();
-    const scored = candidates
-      .filter(movie => !favoriteIds.has(movie.id))
-      .map(movie => {
-        const overlap = (movie.genreIds ?? []).reduce((sum, id) => sum + (genreCounts.get(id) ?? 0), 0);
-        const score = overlap + (movie.voteAverage / 10);
-        return {
-          movie,
-          score,
-          reason: overlap > 0 ? 'Based on genres you enjoy' : 'Popular pick to explore'
-        };
-      })
+    // 4. Fetch popular movies and filter out already favorited ones
+    const popularMovies = await this.movieService.getPopularMovies();
+    const candidateMovies = popularMovies.filter(movie => !favoriteIds.has(movie.id));
+
+    // 5. Score and rank candidate movies based on matching genres and ratings
+    const recommendations: MovieRecommendation[] = candidateMovies.map(movie => {
+      // Calculate genre overlap score
+      const genreOverlap = (movie.genreIds ?? []).reduce(
+        (sum, genreId) => sum + (genreFrequency.get(genreId) ?? 0),
+        0
+      );
+
+      // Total score = genre matches + normalized rating bonus (0 to 1)
+      const score = genreOverlap + (movie.voteAverage / 10);
+      const reason = genreOverlap > 0 ? 'Based on genres you enjoy' : 'Popular pick to explore';
+
+      return { movie, score, reason };
+    });
+
+    // 6. Sort by highest score and return top 20 recommendations
+    return recommendations
       .sort((a, b) => b.score - a.score)
       .slice(0, 20);
-
-    return scored;
   }
 }
