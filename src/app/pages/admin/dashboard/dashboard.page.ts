@@ -49,7 +49,12 @@ export class AdminDashboardPage implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.loadUsers();
+    this.isLoading = true;
+    await Promise.all([
+      this.loadUsers(),
+      this.loadMovies()
+    ]);
+    this.isLoading = false;
   }
 
   async loadUsers(): Promise<void> {
@@ -63,8 +68,6 @@ export class AdminDashboardPage implements OnInit {
   async onSegmentChange(): Promise<void> {
     this.errorMessage = '';
     this.successMessage = '';
-    if (this.segment === 'users') await this.loadUsers();
-    else await this.loadMovies();
   }
 
   editUser(user: User): void {
